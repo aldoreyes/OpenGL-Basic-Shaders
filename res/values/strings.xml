@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, ComputerGraphicsHWActivity!</string>
+    <string name="app_name">ComputerGraphicsHW</string>
+    <string-array name="homeworks">
+        <item >Homework 1</item>
+        <item >Homework 2</item>
+    </string-array>
+    <string-array name="hw1_shaders">
+        <item >Basic</item>
+        <item >Gouraud</item>
+        <item >Phong</item>
+        <item >Texture</item><item>Alpha</item><item >All in One</item>
+        
+        
+    </string-array>
+    <string-array name="hw2_shaders">
+        <item>Bump</item><item >Gloss</item>
+        
+    </string-array>
+
+</resources>

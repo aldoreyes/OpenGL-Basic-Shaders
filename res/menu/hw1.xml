@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/hw1_menu_item_basic" android:title="Basic"></item>
+    <item android:id="@+id/hw1_menu_item_gouraud" android:title="Gouraud"></item>
+    <item android:id="@+id/hw1_menu_item_phong" android:title="Phong"></item>
+    <item android:id="@+id/hw1_menu_item_texture" android:title="Texture"></item>
+    
+
+</menu>
