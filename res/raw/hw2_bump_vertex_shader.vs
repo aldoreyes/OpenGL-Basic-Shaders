@@ -1,6 +1,7 @@
 uniform mat4 u_MVPMatrix;
 uniform mat4 u_MMatrix;
 uniform mat4 u_VMatrixInverse;
+uniform mat4 u_normalMatrix;
 uniform vec4 u_LightPos;
 uniform vec4 u_eyePos;
  
@@ -19,10 +20,9 @@ varying vec3 v_LightDirection;
 // The entry point for our vertex shader.
 void main()
 {
-
-	vec3 viewDirectionWorld = (a_Position - u_eyePos).xyz;
-	
-	vec3 lightDirectionWorld = (u_LightPos - a_Position).xyz;
+	vec4 mPosition = u_MMatrix * a_Position;
+	vec3 viewDirectionWorld = (u_eyePos - mPosition).xyz;	
+	vec3 lightDirectionWorld = (u_LightPos - mPosition).xyz;
 	
 	mat3 tangentMat = mat3((u_MMatrix * vec4(a_Tangent,1)).xyz, (u_MMatrix * vec4(a_Binormal,1)).xyz, (u_MMatrix * vec4(a_Normal,1)).xyz);
 	//mat3 tangentMat = mat3(a_Tangent, a_Binormal, a_Normal);

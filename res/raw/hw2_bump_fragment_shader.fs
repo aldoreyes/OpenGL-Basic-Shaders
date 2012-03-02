@@ -32,7 +32,7 @@ void main()
 	
 	vec4 diffuse = u_Diffuse * nDotL;
 	
-	vec4 specular = u_Specular * pow(rDotV, 2.0) ;
+	vec4 specular = u_Specular * pow(rDotV, 8.0) ;
 	
 	gl_FragColor = (ambient + diffuse + specular) * baseColor;
 }
