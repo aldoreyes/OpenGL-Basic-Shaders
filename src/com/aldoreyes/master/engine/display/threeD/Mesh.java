@@ -31,6 +31,8 @@ public class Mesh {
 	
 	public float[] mMMatrix = new float[16];
 	public float[] mMVMatrix = new float[16];
+	public float[] mMVPMatrix = new float[16];
+	public float[] mNMatrix = new float[16];
 	
 	public Mesh(){
 		
@@ -46,8 +48,11 @@ public class Mesh {
 	public void draw(HomeworkRenderer renderer){
 		
 		
-		Matrix.multiplyMM(mMVMatrix, 0, renderer.VMatrix, 0, mMMatrix, 0);
-		Matrix.multiplyMM(renderer.MVPMatrix, 0, renderer.ProjMatrix, 0, mMVMatrix, 0);
+		Matrix.multiplyMM(mMVMatrix, 0, renderer.getVMatrix(), 0, mMMatrix, 0);
+		Matrix.multiplyMM(mMVPMatrix, 0, renderer.getPMatrix(), 0, mMVMatrix, 0);
+		Matrix.invertM(mNMatrix, 0, mMMatrix, 0);
+		Matrix.transposeM(mNMatrix, 0, mNMatrix, 0);
+		
 		
         bind(renderer);
         
@@ -93,8 +98,8 @@ public class Mesh {
 		
 		bindFMatrix(shader, ProgramShader.M_MATRIX, mMMatrix);
 		bindFMatrix(shader, ProgramShader.MV_MATRIX, mMVMatrix);
-		bindFMatrix(shader, ProgramShader.MVP_MATRIX, renderer.MVPMatrix);
-		
+		bindFMatrix(shader, ProgramShader.MVP_MATRIX, mMVPMatrix);
+		bindFMatrix(shader, ProgramShader.NORMAL_MATRIX, mNMatrix);
 		
 		Iterator<Usage> iterator = mVertexAttributes.getIterator();
 		while(iterator.hasNext()){
@@ -124,6 +129,13 @@ public class Mesh {
 		int MHandler = shader.getUniform(alias);
 		if(MHandler != -1){
 			GLES20.glUniformMatrix4fv(shader.getUniform(alias), 1, false, matrix, 0);
+		}
+	}
+	
+	private void bind3FMatrix(ProgramShader shader, String alias, float[] matrix){
+		int MHandler = shader.getUniform(alias);
+		if(MHandler != -1){
+			GLES20.glUniformMatrix3fv(shader.getUniform(alias), 1, false, matrix, 0);
 		}
 	}
 	

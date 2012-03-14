@@ -55,7 +55,7 @@ public class Homework1Renderer extends HomeworkRenderer {
 		handler = mSelectedShader.getUniform(ProgramShader.LIGHT_POS);
 		if(handler !=  -1){
 			final float[] mVLightPos = new float[mLightPos.length];
-			Matrix.multiplyMV(mVLightPos, 0, VMatrix, 0, mLightPos, 0);
+			Matrix.multiplyMV(mVLightPos, 0, getVMatrix(), 0, mLightPos, 0);
 			GLES20.glUniform3f(handler, mVLightPos[0], mVLightPos[1], mVLightPos[2]);
 			EngineUtils.checkError(mSelectedShader, "glUniform3f");
 		}

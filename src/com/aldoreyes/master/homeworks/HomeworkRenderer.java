@@ -17,12 +17,11 @@ import android.opengl.Matrix;
 public class HomeworkRenderer implements Renderer {
 	protected Context mContext;
 	
-	
-	public float[] MVPMatrix = new float[16];
-	public float[] VMatrix = new float[16];
-	public float[] ProjMatrix = new float[16];
-	
+	private float[] mVMatrix = new float[16];
+	private float[] mPMatrix = new float[16];
 	public float[] VInverseMatrix = new float[16];
+	public float[] NormalMatrix = new float[9];
+	
 	public Vector3 eyePos;
     private GenericSurfaceView mSurface;
     
@@ -31,6 +30,18 @@ public class HomeworkRenderer implements Renderer {
 	protected ProgramShader mSelectedShader;
 	protected int mSelectedShaderInd;
 	protected float[] mLightPos;
+
+
+	protected int mViewportWidth;
+	protected int mViewportHeight;
+	
+	public int getViewportWidth() {
+		return mViewportWidth;
+	}
+
+	public int getViewportHeight() {
+		return mViewportHeight;
+	}
 	
 	public HomeworkRenderer(Context context){
 		mContext = context;
@@ -44,34 +55,29 @@ public class HomeworkRenderer implements Renderer {
 	public void onDrawFrame(GL10 gl) {
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 		GLES20.glUseProgram(mSelectedShader.getProgram());
-		
-		
 
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		mViewportWidth = width;
+		mViewportHeight = height;
 		GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
         eyePos = new Vector3(0,0,-6);
 		
-        Matrix.frustumM(ProjMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
-        Matrix.setLookAtM(VMatrix, 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.frustumM(getPMatrix(), 0, -ratio, ratio, -1, 1, 2, 12);
+        Matrix.setLookAtM(getVMatrix(), 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
         
-        Matrix.invertM(VInverseMatrix, 0, VMatrix, 0);
+        Matrix.invertM(VInverseMatrix, 0, getVMatrix(), 0);
         GLES20.glUseProgram(mSelectedShader.getProgram());
        
 		
 		int handler;
 		if((handler = mSelectedShader.getUniform(ProgramShader.EYE_POS)) >= 0){
-			//final float[] eyePosTemp = new float[4];
-			//Matrix.multiplyMV(eyePosTemp, 0, VMatrix, 0, eyePos.to4Array(), 0);
-			//eyePos.set(eyePosTemp);
 			GLES20.glUniform4f(handler, eyePos.x, eyePos.y, eyePos.z, 1f);
 		}
 		
 		if((handler = mSelectedShader.getUniform(ProgramShader.LIGHT_POS)) >= 0){
-			//final float[] mVLightPos = new float[mLightPos.length];
-			//Matrix.multiplyMV(mVLightPos, 0, VMatrix, 0, mLightPos, 0);
 			GLES20.glUniform4f(handler, mLightPos[0], mLightPos[1], mLightPos[2], mLightPos[3]);
 		}
 		
@@ -85,7 +91,7 @@ public class HomeworkRenderer implements Renderer {
 			GLES20.glUniform4f(handler, 0.3f, 0.3f, 0.3f, 1f);
 		}
 		if((handler = mSelectedShader.getUniform(ProgramShader.UNIFORM_LIGHT_COLOR)) >= 0){
-			GLES20.glUniform4f(handler, 0.0f, 0.2f, 1f, 1f);
+			GLES20.glUniform4f(handler, 0.8f, 0.8f, 1f, 1f);
 		}
         
 	}
@@ -113,6 +119,22 @@ public class HomeworkRenderer implements Renderer {
 	
 	public void setSelectedShader(int index){
 		this.mSelectedShader = shaders[mSelectedShaderInd = index];
+	}
+
+	public float[] getVMatrix() {
+		return mVMatrix;
+	}
+
+	public void setVMatrix(float[] mVMatrix) {
+		this.mVMatrix = mVMatrix;
+	}
+
+	public float[] getPMatrix() {
+		return mPMatrix;
+	}
+
+	public void setPMatrix(float[] mPMatrix) {
+		this.mPMatrix = mPMatrix;
 	}
 
 }

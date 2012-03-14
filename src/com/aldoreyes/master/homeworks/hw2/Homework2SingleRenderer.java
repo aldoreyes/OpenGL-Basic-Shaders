@@ -60,9 +60,7 @@ public class Homework2SingleRenderer extends HomeworkRenderer {
 		if(handler >= 0){
 			GLES20.glUniformMatrix4fv(handler, 1, false, VInverseMatrix, 0);
 		}
-		
-		
-		
+				
 		
 		Matrix.setIdentityM(mMesh.mMMatrix, 0);
 		Matrix.translateM(mMesh.mMMatrix, 0, 0, -.4f, 0);
@@ -76,12 +74,6 @@ public class Homework2SingleRenderer extends HomeworkRenderer {
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		super.onSurfaceChanged(gl, width, height);
 		setSelectedShader(mSelectedShaderInd);
-	}
-	
-	@Override
-	public void setSelectedShader(int index) {
-		super.setSelectedShader(index);
-		
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -101,29 +93,37 @@ public class Homework2SingleRenderer extends HomeworkRenderer {
 		texturesConfig.LightPos = true;
 		texturesConfig.MVMatrix = true;
 		texturesConfig.AttrTexture = true;
+		int handler;
 		
 		switch (mShaderType) {
 		case 0:
 			shaders = new ProgramShader[]{new ProgramShader(R.raw.hw2_bump_vertex_shader, R.raw.hw2_bump_fragment_shader, mContext)};
+			setSelectedShader(0);
+			handler = mSelectedShader.getUniform(ProgramShader.UNIFORM_TEXTURE1);
+			if(handler >= 0){
+				mBumpTexture = new Texture(mContext, R.raw.bump);
+			}
 			break;
 		case 1:
 			shaders = new ProgramShader[]{new ProgramShader(R.raw.hw2_gloss_vertex_shader, R.raw.hw2_gloss_fragment_shader, mContext)};
+			setSelectedShader(0);
+			handler = mSelectedShader.getUniform(ProgramShader.UNIFORM_TEXTURE1);
+			if(handler >= 0){
+				mBumpTexture = new Texture(mContext, R.raw.gloss_map);
+			}
 			break;
 		default:
 			break;
 		}
-		setSelectedShader(0);
 		
 		
-		int handler = mSelectedShader.getUniform(ProgramShader.UNIFORM_TEXTURE);
+		
+		handler = mSelectedShader.getUniform(ProgramShader.UNIFORM_TEXTURE);
 		if(handler >= 0){
 			mTexture = new Texture(mContext, mTextureResourceID);
 		}
 		
-		handler = mSelectedShader.getUniform(ProgramShader.UNIFORM_TEXTURE1);
-		if(handler >= 0){
-			mBumpTexture = new Texture(mContext, R.raw.bump);
-		}
+		
 		try {
 			mMesh = OBJReader.readOBJ(mContext, mMeshResourceID);
 		} catch (Exception e) {

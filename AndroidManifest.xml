@@ -24,6 +24,9 @@
         <activity android:label="Shader" android:name=".homeworks.hw1.Homework1SingleShaderActivity"></activity>
         <activity android:name=".homeworks.hw2.Homework2ListActivity"></activity>
         <activity android:name=".homeworks.hw2.Homework2SingleShaderActivity"></activity>
+        <activity android:name=".homeworks.extra.ExtraActivity"></activity>
+        <activity android:name=".homeworks.extra.ExtraListActivity"></activity>
+        <activity android:name=".homeworks.extra.ExtraSingleShaderActivity"></activity>
     </application>
 
 </manifest>

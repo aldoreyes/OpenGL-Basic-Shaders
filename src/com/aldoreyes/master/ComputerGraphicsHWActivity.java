@@ -1,5 +1,6 @@
 package com.aldoreyes.master;
 
+import com.aldoreyes.master.homeworks.extra.ExtraListActivity;
 import com.aldoreyes.master.homeworks.hw1.Homework1ListActivity;
 import com.aldoreyes.master.homeworks.hw2.Homework2ListActivity;
 
@@ -31,6 +32,9 @@ public class ComputerGraphicsHWActivity extends ListActivity {
 					break;
 				case 1:
 					ComputerGraphicsHWActivity.this.startActivity(new Intent(ComputerGraphicsHWActivity.this, Homework2ListActivity.class));
+					break;
+				case 2:
+					ComputerGraphicsHWActivity.this.startActivity(new Intent(ComputerGraphicsHWActivity.this, ExtraListActivity.class));
 					break;
 				default:
 					break;

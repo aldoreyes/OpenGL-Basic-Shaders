@@ -13,6 +13,8 @@ public interface IProgramShaderConstants {
 	public static final String MV_MATRIX = "u_MVMatrix";
 	public static final String M_MATRIX = "u_MMatrix";
 	public static final String MVInverse_MATRIX = "u_VMatrixInverse";
+	public static final String NORMAL_MATRIX = "u_normalMatrix";
+	public static final String SHADOW_MATRIX = "u_shadowPMatrix";
 	public static final String LIGHT_POS = "u_LightPos";
 	public static final String EYE_POS = "u_eyePos";
 	public static final String UNIFORM_TEXTURE = "u_Texture";
