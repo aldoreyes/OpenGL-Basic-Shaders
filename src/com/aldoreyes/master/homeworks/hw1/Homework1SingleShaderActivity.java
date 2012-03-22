@@ -2,19 +2,13 @@ package com.aldoreyes.master.homeworks.hw1;
 
 import com.aldoreyes.master.R;
 import com.aldoreyes.master.engine.GenericSurfaceView;
-import com.aldoreyes.master.engine.ProgramShader;
-import com.aldoreyes.master.homeworks.HomeworkRenderer;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 public class Homework1SingleShaderActivity extends Activity {
 	private GLSurfaceView mGLView;
-	private HomeworkRenderer renderer;
 	private int mShader;
 	
 	@Override
@@ -24,7 +18,7 @@ public class Homework1SingleShaderActivity extends Activity {
 		
 		mShader = getIntent().getExtras().getInt("shader");
 
-		mGLView = new GenericSurfaceView(this, renderer = new Homework1SingleRenderer(this.getApplicationContext(), mShader, R.raw.teapot, R.raw.itesm));
+		mGLView = new GenericSurfaceView(this, new Homework1SingleRenderer(this.getApplicationContext(), mShader, mShader == 0?R.raw.triangle:R.raw.teapot, R.raw.itesm));
 		setContentView(mGLView);
 		
 	}

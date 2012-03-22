@@ -68,16 +68,13 @@ public class Mesh {
 	}
 	
 	private void unbind(ProgramShader shader){
-		Iterator<Usage> iterator = mVertexAttributes.getIterator();
-		while(iterator.hasNext()){
-			VertexAttribute attr = mVertexAttributes.getAttribute(iterator.next());
+		for(VertexAttribute attr :mVertexAttributes.getAttributes().values()){
 			int handler = shader.getHandler(attr.alias);
 			if(handler != -1){
 				GLES20.glDisableVertexAttribArray(handler);
 			}
 			
 		}
-		iterator = null;
 		
 		unbindAttribute(shader, ProgramShader.TEXCOORD_ATTRIBUTE, mTexBuffer);
 		unbindAttribute(shader, ProgramShader.TANGENT_ATTRIBUTE, mTangentsBuffer);
@@ -101,9 +98,7 @@ public class Mesh {
 		bindFMatrix(shader, ProgramShader.MVP_MATRIX, mMVPMatrix);
 		bindFMatrix(shader, ProgramShader.NORMAL_MATRIX, mNMatrix);
 		
-		Iterator<Usage> iterator = mVertexAttributes.getIterator();
-		while(iterator.hasNext()){
-			VertexAttribute attr = mVertexAttributes.getAttribute(iterator.next());
+		for(VertexAttribute attr :mVertexAttributes.getAttributes().values()){
 			mVertexBuffer.position(attr.offset);
 			int handler = shader.getHandler(attr.alias);
 			if(handler != -1){
@@ -118,7 +113,6 @@ public class Mesh {
 				}
 			}
 		}
-		iterator = null;
 		
 		bindAttribute(shader, ProgramShader.TEXCOORD_ATTRIBUTE, mTexBuffer,2);
 		bindAttribute(shader, ProgramShader.TANGENT_ATTRIBUTE, mTangentsBuffer, 3);

@@ -16,7 +16,6 @@ import com.aldoreyes.master.engine.display.threeD.Mesh;
 import com.aldoreyes.master.engine.input.RotationInputHandler;
 import com.aldoreyes.master.engine.reader.OBJReader;
 import com.aldoreyes.master.homeworks.HomeworkRenderer;
-import com.aldoreyes.master.utils.EngineUtils;
 
 public class Homework1SingleRenderer extends HomeworkRenderer {
 	int mMeshResourceID, mTextureResourceID;

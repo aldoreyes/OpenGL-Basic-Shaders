@@ -41,10 +41,11 @@ public final class VertexAttributes {
 	public VertexAttribute getAttribute(Usage usage){
 		return attributes.get(usage);
 	}
-	
-	public Iterator<Usage> getIterator(){
-		return attributes.keySet().iterator();
+
+	public HashMap<Usage, VertexAttribute> getAttributes() {
+		return attributes;
 	}
+	
 	
 	
 }

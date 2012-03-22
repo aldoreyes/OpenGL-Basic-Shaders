@@ -63,10 +63,10 @@ public class HomeworkRenderer implements Renderer {
 		mViewportHeight = height;
 		GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
-        eyePos = new Vector3(0,0,-6);
+        
 		
         Matrix.frustumM(getPMatrix(), 0, -ratio, ratio, -1, 1, 2, 12);
-        Matrix.setLookAtM(getVMatrix(), 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        
         
         Matrix.invertM(VInverseMatrix, 0, getVMatrix(), 0);
         GLES20.glUseProgram(mSelectedShader.getProgram());
@@ -102,7 +102,8 @@ public class HomeworkRenderer implements Renderer {
 		
 		GLES20.glClearColor(.5f, .5f,.5f, 1f);
 		mLightPos = new float[]{1f, 0f, -2f, 1f};
-
+		eyePos = new Vector3(0,0,-6);
+		Matrix.setLookAtM(getVMatrix(), 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 	}
 
 	public GenericSurfaceView getSurface() {

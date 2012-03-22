@@ -14,6 +14,7 @@ import com.aldoreyes.master.engine.display.Texture;
 import com.aldoreyes.master.engine.display.threeD.Mesh;
 import com.aldoreyes.master.engine.input.RotationInputHandler;
 import com.aldoreyes.master.engine.light.DirectionalLight;
+import com.aldoreyes.master.engine.math.Vector3;
 import com.aldoreyes.master.engine.reader.OBJReader;
 import com.aldoreyes.master.homeworks.HomeworkRenderer;
 import com.aldoreyes.master.utils.EngineUtils;
@@ -122,15 +123,15 @@ public class ShadowRenderer extends HomeworkRenderer {
 	private void drawAllObjects(){
 		Matrix.setIdentityM(plane.mMMatrix, 0);
 		Matrix.scaleM(plane.mMMatrix, 0, 7,7,7);
-		Matrix.translateM(plane.mMMatrix, 0, 0, -.2f, 0);
+		Matrix.translateM(plane.mMMatrix, 0, 0, -.2f, 0f);
 		//Matrix.rotateM(plane.mMMatrix, 0, inputHandler.getAngleX(),  0, 1.0f, 0);
 		//Matrix.rotateM(plane.mMMatrix, 0, inputHandler.getAngleY(),  1.0f, 0, 0);
 		plane.draw(this);
 		
 		Matrix.setIdentityM(teapot.mMMatrix, 0);
-		Matrix.translateM(teapot.mMMatrix, 0, 0, -.5f, 0);
-		//Matrix.rotateM(teapot.mMMatrix, 0, inputHandler.getAngleX(),  0, 1.0f, 0);
-		//Matrix.rotateM(teapot.mMMatrix, 0, inputHandler.getAngleY(),  1.0f, 0, 0);
+		Matrix.translateM(teapot.mMMatrix, 0, 0, .5f, -2f);
+		Matrix.rotateM(teapot.mMMatrix, 0, inputHandler.getAngleX(),  0, 1.0f, 0);
+		Matrix.rotateM(teapot.mMMatrix, 0, inputHandler.getAngleY(),  1.0f, 0, 0);
 		teapot.draw(this);
 	}
 	
@@ -138,9 +139,9 @@ public class ShadowRenderer extends HomeworkRenderer {
 	public void onDrawFrame(GL10 gl) {
 		super.onDrawFrame(gl);
 		
-		Matrix.setLookAtM(getVMatrix(), 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-		Matrix.rotateM(getVMatrix(), 0, inputHandler.getAngleX(),  0, 1.0f, 0);
-		Matrix.rotateM(getVMatrix(), 0, inputHandler.getAngleY(),  1.0f, 0, 0);
+		//Matrix.setLookAtM(getVMatrix(), 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+		//Matrix.rotateM(getVMatrix(), 0, inputHandler.getAngleX(),  0, 1.0f, 0);
+		//Matrix.rotateM(getVMatrix(), 0, inputHandler.getAngleY(),  1.0f, 0, 0);
 		
 		renderDepthToTexture();
 	}
@@ -157,9 +158,10 @@ public class ShadowRenderer extends HomeworkRenderer {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// TODO Auto-generated method stub
 		super.onSurfaceCreated(gl, config);
-		//GLES20.glClearDepthf(1.0f);
-		//GLES20.glDepthFunc( GLES20.GL_LEQUAL );
-		//GLES20.glDepthMask( true );
+		
+		eyePos = new Vector3(0,6,-6);
+		Matrix.setLookAtM(getVMatrix(), 0, eyePos.x, eyePos.y, eyePos.z, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+		
 		GLES20.glDisable(GLES20.GL_DITHER);
 		//GLES20.glFrontFace(GLES20.GL_CCW);
 		//GLES20.glCullFace(GLES20.GL_BACK); 
