@@ -1,5 +1,7 @@
 package com.aldoreyes.master.homeworks.hw1;
 
+import java.util.ArrayList;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -13,6 +15,9 @@ import com.aldoreyes.master.engine.ProgramShader;
 import com.aldoreyes.master.engine.ShaderConfig;
 import com.aldoreyes.master.engine.display.Texture;
 import com.aldoreyes.master.engine.display.threeD.Mesh;
+import com.aldoreyes.master.engine.display.vertex.VertexAttribute;
+import com.aldoreyes.master.engine.display.vertex.VertexAttributes;
+import com.aldoreyes.master.engine.display.vertex.VertexAttributes.Usage;
 import com.aldoreyes.master.engine.input.RotationInputHandler;
 import com.aldoreyes.master.engine.reader.OBJReader;
 import com.aldoreyes.master.homeworks.HomeworkRenderer;
@@ -137,6 +142,17 @@ public class Homework1SingleRenderer extends HomeworkRenderer {
 		}
 		try {
 			mMesh = OBJReader.readOBJ(mContext, mMeshResourceID);
+			/*mMesh = new Mesh();
+			mMesh.setVertices(new float[]{-0.5f, 0f, 0.5f, 0.0f, -1.0f, 0.0f,
+											0.5f, 0f, -0.5f, 0.0f, -1.0f, 0.0f,
+											-0.5f, 0f, -0.5f, 0.0f, -1.0f, 0.0f});
+			
+			ArrayList<VertexAttribute> attributes = new ArrayList<VertexAttribute>();
+			attributes.add(new VertexAttribute(Usage.Position, 3, ProgramShader.POSITION_ATTRIBUTE));
+			attributes.add(new VertexAttribute(Usage.Normal, 3, ProgramShader.NORMAL_ATTRIBUTE));
+			
+			VertexAttributes vertexAttributes = new VertexAttributes(attributes.toArray(new VertexAttribute[attributes.size()]));
+			mMesh.setVertexAttributes(vertexAttributes);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

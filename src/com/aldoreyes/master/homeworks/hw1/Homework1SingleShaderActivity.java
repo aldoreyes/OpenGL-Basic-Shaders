@@ -18,7 +18,7 @@ public class Homework1SingleShaderActivity extends Activity {
 		
 		mShader = getIntent().getExtras().getInt("shader");
 
-		mGLView = new GenericSurfaceView(this, new Homework1SingleRenderer(this.getApplicationContext(), mShader, mShader == 0?R.raw.triangle:R.raw.teapot, R.raw.itesm));
+		mGLView = new GenericSurfaceView(this, new Homework1SingleRenderer(this.getApplicationContext(), mShader, mShader == 0?R.raw.triangle:R.raw.triangle, R.raw.itesm));
 		setContentView(mGLView);
 		
 	}

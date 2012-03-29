@@ -60,7 +60,7 @@ public class Mesh {
 			GLES20.glDrawElements(GLES20.GL_LINES, indicesLength, GLES20.GL_UNSIGNED_SHORT, mIndicesBuffer);
 			EngineUtils.checkError("glDrawElements");
 		}else{
-			GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, length);
+			GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, length/mVertexAttributes.vertexNumComponents);
 			EngineUtils.checkError("glDrawArrays");
 		}		
 		
@@ -104,9 +104,9 @@ public class Mesh {
 			if(handler != -1){
 				try{
 					GLES20.glVertexAttribPointer(handler, attr.numComponents, GLES20.GL_FLOAT, false, mVertexAttributes.vertexSize, mVertexBuffer);
-					EngineUtils.checkError(shader, "glVertexAttribPointer");
+					//EngineUtils.checkError(shader, "glVertexAttribPointer");
 					GLES20.glEnableVertexAttribArray(handler);
-					EngineUtils.checkError(shader, "glEnableVertexAttribArray");
+					//EngineUtils.checkError(shader, "glEnableVertexAttribArray");
 				}catch (RuntimeException e) {
 					Log.d("CG", attr.alias);
 					throw e;
